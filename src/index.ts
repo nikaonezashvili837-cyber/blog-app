@@ -2,8 +2,13 @@ import { IncomingMessage, ServerResponse } from "node:http";
 import http from 'http';
 import { readFileSync } from "node:fs";
 const data = JSON.parse(readFileSync(`${process.cwd()}/data/data.json`,'utf-8'));
+interface Post {
+  id: number;
+  post_author: string;
+  post_content: string;
+}
 function findPost(id:number){
-    return data.find(post=> post.id === id)
+    return data.find((post:Post) => post.id === id)
 }
 const server:http.Server  = http.createServer((req:IncomingMessage,res:ServerResponse)=>{
     const url:string | undefined = req.url;
